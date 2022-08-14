@@ -93,6 +93,10 @@
 
 ![3](assets/3.jpg)
 
+PC端收发通信信息
+
+![mqtt](assets/mqtt.png)
+
 ## 动画效果展示（视频）
 
 展示视频 *show_video.mp4* 位于video文件夹

@@ -92,6 +92,10 @@ Remote control page: IoT control (left), chat box (right)
 
 ![3](assets/3.jpg)
 
+PC sends and receives communication information
+
+![mqtt](assets/mqtt.png)
+
 ## Animation effect display (video)
 
 Show video *show_video.mp4* is located in the video folder
