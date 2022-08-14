@@ -28,7 +28,7 @@ Implemented functions:
 
 ![1](assets/1.jpg)
 
-###Software
+### Software
 
 - RT-Thread Env
 - SquareLine Studio
@@ -39,12 +39,12 @@ Implemented functions:
 - cJSON-v1.0.2
 - mymqtt-latest
 
-##Project construction
+## Project construction
 
 - First, we need to install the development environment required by the project: RT-Thread Env、MDK5、SquareLine Studio. 
 
   - RT-Thread Env is a tool for project configuration and build
-  - MDK5is used to compile and download code
+  - MDK5 is used to compile and download code
   - SquareLine Studio is used to design gui and export the front-end C code of LVGL
 - Download RT thread code from GitHub, link: https://github.com/RT-Thread/rt-thread.git
 
