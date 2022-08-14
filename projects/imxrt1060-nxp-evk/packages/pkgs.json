@@ -1,0 +1,22 @@
+[
+ {
+  "path": "/packages/iot/mymqtt", 
+  "ver": "latest", 
+  "name": "MYMQTT"
+ }, 
+ {
+  "path": "/packages/iot/at_device", 
+  "ver": "latest", 
+  "name": "AT_DEVICE"
+ }, 
+ {
+  "path": "/packages/language/JSON/cJSON", 
+  "ver": "v1.0.2", 
+  "name": "CJSON"
+ }, 
+ {
+  "path": "/packages/multimedia/LVGL/LVGL", 
+  "ver": "latest", 
+  "name": "LVGL"
+ }
+]
