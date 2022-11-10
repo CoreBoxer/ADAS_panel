@@ -1,22 +1,32 @@
-# 基于RT-Thread与LVGL的车载ADAS辅助驾驶面板
+# Vehicle ADAS auxiliary panel based on RT-Thread and LVGL
 
-## 项目介绍
+<div align="center">
+<strong>
+<samp>
 
-项目以NXP RT1060EVKB为硬件平台，通过LVGL GUI前端设计，与后端功能结合，实现一个现代化的车载ADAS辅助驾驶面板。
+[English](README.md) · [简体中文](README_CN.md)
+
+</samp>
+</strong>
+</div>
+
+## Project introduction
+
+The project uses NXP RT1060EVKB as the hardware platform, through the front-end design of LVGL GUI and the combination of back-end functions, to realize a modern vehicle ADAS auxiliary driving panel. 
 
 ![4](assets/4.jpg)
 
 ![5](assets/5.jpg)
 
-已实现功能：
+Implemented functions: 
 
-1. 汽车仪表盘显示：汽车仪表盘为GUI主页面，显示汽车的时速、发动机转速、油量、转向灯、电池状态等信息，提供数据传入接口，以高刷新率显示，充分利用RT1060的LCD驱动能力。
-2. IoT远程控制：开发板通过网卡接入互联网，连接位于云端的MQTT服务器，基于LVGL实现前端控制界面，实现远程控制家庭中的灯开关、亮度、空调温度的功能。
-3. 远程聊天：基于LVGL的TextArea和Keyboard控件，结合MQTT实现ADAS车载系统与远程客户端聊天的功能。
+1. Display of automobile instrument panel: the automobile instrument panel is the main page of GUI, which displays the information of automobile speed, engine speed, fuel quantity, steering light, battery status, etc., provides data input interface, displays it with high refresh rate, and makes full use of the LCD driving ability of RT1060. 
+2. IoT remote control: the development board accesses the Internet through the network card, connects to the MQTT server located in the cloud, and realizes the front-end control interface based on LVGL to realize the function of remote control of light switch, brightness and air conditioning temperature in the home. 
+3. Remote chat: Based on the TextArea and keyboard controls of LVGL, the function of chat between ADAS system and remote client is realized in combination with MQTT. 
 
-## BOM 物料信息
+## BOM information
 
-### 硬件
+### Hardware
 
 - MIMXRT1060-EVKB
 
@@ -26,86 +36,85 @@
 
 - Few wires
 
-  ![1](assets/1.jpg)
+![1](assets/1.jpg)
 
-### 软件
+### Software
 
 - RT-Thread Env
 - SquareLine Studio
 - MDK5
-- RT-Thread操作系统
+- RT-Thread OS
 - LVGL-latest
 - at_device-latest
 - cJSON-v1.0.2
 - mymqtt-latest
 
-## 项目构建
+## Project construction
 
-1. 首先，我们需要安装项目所需的开发环境：RT-Thread Env、MDK5、SquareLine Studio。
+- First, we need to install the development environment required by the project: RT-Thread Env、MDK5、SquareLine Studio. 
 
-   - RT-Thread Env 是项目配置和构建工程的工具
-   - MDK5 用来编译和下载代码
-   - SquareLine Studio 用来设计 GUI，并导出 LVGL 的前端C代码
+  - RT-Thread Env is a tool for project configuration and build
+  - MDK5 is used to compile and download code
+  - SquareLine Studio is used to design gui and export the front-end C code of LVGL
+- Download RT thread code from GitHub, link: https://github.com/RT-Thread/rt-thread.git
 
-2. 从Github下载RT-Thread代码，链接：https://github.com/RT-Thread/rt-thread.git
+Use RT-Thread Env to switch to directory *bsp/imxrt/imxrt1060-nxp-evk*, and start **menuconfig** to open the following configuration
 
-   使用 RT-Thread Env 切换到 bsp/imxrt/imxrt1060-nxp-evk 目录下，启动 **menuconfig** 打开以下配置
+1. Enable AT network components
 
-   1. 启用 AT 网络组件
+![image-20220814174502842](assets/image-20220814174502842.png)
 
-      ![image-20220814174502842](assets/image-20220814174502842.png)
+2. Enable LVGL, appropriately increase the thread stack size, and set the refresh period to 33ms (the default refresh period is 5ms, which is so fast that it will cause some displaying problems)
 
-   2. 启用LVGL，适当增大线程栈大小，并设置刷新周期为33ms（默认刷新周期为5ms，刷新过快会产生显示异常）
+![image-20220814174941069](assets/image-20220814174941069.png)
 
-      ![image-20220814174941069](assets/image-20220814174941069.png)
+3. Enable MQTT components and at network devices
 
-   3. 启用MQTT组件与AT网络设备
+![image-20220814174724140](assets/image-20220814174724140.png)
 
-      ![image-20220814174724140](assets/image-20220814174724140.png)
+4. Enable the cJSON component
 
-   4. 启用cJSON组件
+![image-20220814175040808](assets/image-20220814175040808.png)
 
-      ![image-20220814175040808](assets/image-20220814175040808.png)
+5. Enable LCD, TOUCHPAD, LVGL and SquareLine Studio support
 
-   5. 启用LCD、TOUCHPAD、LVGL以及SquareLine Studio支持
+![image-20220814175215629](assets/image-20220814175215629.png)
 
-      ![image-20220814175215629](assets/image-20220814175215629.png)
+6. Enable peripherals such as UART3. Complete configuration file *.config* will be provided in the project source code. After the **menuconfig**  configuration is completed, the program will automatically download the relevant components, and then use the **scons --target=mdk5** command to generate the MDK5 project. 
 
-   6. 启用UART3等外设。完整的配置文件 **.config** 会在工程源码中提供，**menuconfig** 配置完成后，程序会自动下载相关组件，随后使用 **scons --target=mdk5** 命令生成MDK5工程。
+3. Open SquareLine Studio and import GUI front-end design project
 
-3. 打开 SquareLine Studio，导入GUI 前端设计工程
+![image-20220814175929574](assets/image-20220814175929574.png)
 
-   ![image-20220814175929574](assets/image-20220814175929574.png)
+![image-20220814180117301](assets/image-20220814180117301.png)
 
-   ![image-20220814180117301](assets/image-20220814180117301.png)
+4. After completing the front-end GUI design, export the C code and copy it to the *imxrt1060-nxp-evk\applications\lvgl\squareline\ui* directory
 
-4. 完成前端GUI设计后，导出C代码，将其复制到 *imxrt1060-nxp-evk\applications\lvgl\squareline\ui* 目录下
+5. Compile the project and download it into the development board
 
-5. MDK5 编译工程，并下载进开发板中
+## Static effect display (picture)
 
-## 静态效果展示（图片）
-
-主页面：汽车仪表盘
+Home page: dashboard panel
 
 ![2](assets/2.jpg)
 
-远程控制页面：IoT控制（左侧）、聊天框（右侧）
+Remote control page: IoT control (left), chat box (right)
 
 ![3](assets/3.jpg)
 
-PC端收发通信信息
+PC sends and receives communication information
 
 ![mqtt](assets/mqtt.png)
 
-## 动画效果展示（视频）
+## Animation effect display (video)
 
-展示视频 *show_video.mp4* 位于video文件夹
+Show video *show_video.mp4* is located in the video folder
 
-## 参考资料
+## References
 
-1. [应用笔记](https://deepinout.com/lvgl-tutorials/lvgl-getting-started/lvgl-intro.html )
+1. [application notes](https://deepinout.com/LVGL-tutorials/LVGL-getting-started/LVGL-intro.html)
 
-2. [官方文档](https://www.nxp.com.cn/design/development-boards/i-mx-evaluation-and-development-boards/i-mx-rt1060-evaluation-kit:MIMXRT1060-EVKB)
+2. [official documents](https://www.nxp.com.cn/design/development-boards/i-mx-evaluation-and-development-boards/i-mx-rt1060-evaluation-kit:MIMXRT1060-EVKB)
 
-3. [wiki](http://lvgl.100ask.net/8.2/widgets/core/textarea.html#api)
+3. [wiki](http://LVGL.100ask.net/8.2/widgets/core/textarea.html#api)
 
